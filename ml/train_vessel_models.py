@@ -19,13 +19,13 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 # Project paths
-BASE_DIR = Path(__file__).resolve().parent
-DATASET_PATH =  Path(
-    r"C:\Users\Lenovo\Desktop\dataset\extention_of_z_alizadeh_sani_dataset.xlsx"
-)
+BASE_DIR = Path(__file__).resolve().parent.parent
+dataset_folder = BASE_DIR / "dataset"
+excel_files = list(dataset_folder.glob("*.xlsx")) if dataset_folder.exists() else []
+DATASET_PATH = excel_files[0] if excel_files else (dataset_folder / "extention_of_z_alizadeh_sani_dataset.xlsx")
 
 MODEL_DIR = BASE_DIR / "models"
-MODEL_DIR.mkdir(parents = True ,exist_ok=True) 
+MODEL_DIR.mkdir(parents=True, exist_ok=True) 
 
 # Load dataset
 df = pd.read_excel(DATASET_PATH)

@@ -1,0 +1,118 @@
+/* ==========================================================================
+   CardioVision Pro - Clinical Enterprise Medical HUD Stylesheet
+   Designed for High-Precision Diagnostic Workflows (Siemens/Arterys Aesthetic)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-core: #070a10;
+  --bg-panel: #0d121c;
+  --bg-card: #121824;
+  --border-subtle: #1e2638;
+  --border-active: #2e3b56;
+  --accent-cyan: #06b6d4;
+  --accent-blue: #3b82f6;
+  --risk-low: #10b981;
+  --risk-mid: #f59e0b;
+  --risk-high: #ef4444;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-core);
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* DICOM Medical Viewport Grid */
+.dicom-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+}
+
+/* ECG Rhythm Canvas */
+#ecg-canvas {
+  width: 100%;
+  height: 48px;
+  background-color: #06090f;
+  border-radius: 8px;
+}
+
+/* Medical Viewport Reticle / Crosshair */
+.reticle-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: rgba(56, 189, 248, 0.4);
+  pointer-events: none;
+}
+.reticle-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+.reticle-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.reticle-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+.reticle-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Custom Precision Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-core);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Stenotic Lesion Pulse Animation */
+@keyframes plaquePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.9));
+  }
+}
+
+.plaque-indicator {
+  animation: plaquePulse 1.4s infinite ease-in-out;
+}
+
+/* Active Clinical Tab */
+.clinical-tab-active {
+  background-color: #1e293b;
+  color: #38bdf8;
+  border-color: #0284c7;
+}
+
+/* Smooth Gauge Transition */
+#gauge-arc {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
+}
+
+/* Interactive Vessel Row Highlight */
+.vessel-row {
+  transition: all 0.2s ease;
+}
+.vessel-row:hover {
+  background-color: rgba(30, 41, 59, 0.6);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+.vessel-row.selected-vessel {
+  background-color: rgba(14, 165, 233, 0.12);
+  border-color: #0284c7;
+  box-shadow: 0 0 16px rgba(2, 132, 199, 0.2);
+}

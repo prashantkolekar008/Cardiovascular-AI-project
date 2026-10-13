@@ -15,13 +15,13 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # Project and dataset paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATASET_PATH = Path(
-    r"C:\Users\Lenovo\Desktop\dataset\extention_of_z_alizadeh_sani_dataset.xlsx"
-)
+dataset_folder = BASE_DIR / "dataset"
+excel_files = list(dataset_folder.glob("*.xlsx")) if dataset_folder.exists() else []
+DATASET_PATH = excel_files[0] if excel_files else (dataset_folder / "extention_of_z_alizadeh_sani_dataset.xlsx")
 
 if not DATASET_PATH.exists():
     raise FileNotFoundError(
-        f"Dataset file not found: {DATASET_PATH}"
+        f"Dataset file not found: {DATASET_PATH}. Please place the dataset in the 'dataset/' folder."
     )
 
 df = pd.read_excel(DATASET_PATH)
