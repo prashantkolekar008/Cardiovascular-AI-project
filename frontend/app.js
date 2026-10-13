@@ -27,7 +27,7 @@ let ecgStep = 0;
 let ecgHeartRate = 75;
 let ecgStElevation = false;
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = window.location.origin;
 
 // --- 1. THREE.JS INITIALIZATION ---
 function init3D() {
