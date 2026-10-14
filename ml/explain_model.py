@@ -5,8 +5,13 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 # Project folders
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATASET_PATH = BASE_DIR / "dataset" / "extention of Z-Alizadeh sani dataset.xlsx.xlsx"
+dataset_folder = BASE_DIR / "dataset"
+excel_files = list(dataset_folder.glob("*.xlsx")) if dataset_folder.exists() else []
+DATASET_PATH = excel_files[0] if excel_files else (dataset_folder / "extention of Z-Alizadeh sani dataset.xlsx")
 MODEL_PATH = BASE_DIR / "models" / "cad_model.joblib"
+
+if not DATASET_PATH.exists():
+    raise FileNotFoundError(f"Dataset not found at {DATASET_PATH}. Please place an Excel dataset in the dataset/ folder.")
 
 # Load trained model
 model = joblib.load(MODEL_PATH)
@@ -84,28 +89,6 @@ plt.title("CardioVision AI - SHAP Feature Contributions")
 plt.tight_layout()
 
 # Save graph in project folder
-output_path = BASE_DIR / "models" / "shap_feature_contributions.png"
-plt.savefig(output_path, dpi=300)
-plt.show()
-
-print(f"\nSHAP graph saved at: {output_path}")# Plot top 10 feature contributions
-top_features = contributions.head(10).sort_values(
-    by="SHAP Contribution"
-)
-
-plt.figure(figsize=(10, 6))
-
-plt.barh(
-    top_features["Feature"],
-    top_features["SHAP Contribution"]
-)
-
-plt.axvline(x=0, linestyle="--")
-plt.xlabel("SHAP Contribution")
-plt.ylabel("Features")
-plt.title("CardioVision AI - SHAP Feature Contributions")
-plt.tight_layout()
-
 output_path = BASE_DIR / "models" / "shap_feature_contributions.png"
 plt.savefig(output_path, dpi=300)
 plt.show()
