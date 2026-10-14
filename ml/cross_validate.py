@@ -22,7 +22,7 @@ if not excel_files:
 df = pd.read_excel(excel_files[0])
 
 # Target: CAD / Normal
-y = df["Cath"].map({"CAD": 1, "Normal": 0})
+y = df["Cath"].astype(str).str.strip().str.upper().map({"CAD": 1, "NORMAL": 0})
 
 if y.isna().any():
     raise ValueError("Cath column mein unexpected labels hain.")

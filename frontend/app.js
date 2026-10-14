@@ -141,6 +141,11 @@ function loadAnatomicalHeartGLB() {
 
       // Overlay continuous, anatomical coronary arterial trees
       buildContinuousCoronaryArteries();
+
+      // If predictions arrived while loading 3D mesh, apply colors immediately!
+      if (currentPredictions) {
+        update3DCoronaries();
+      }
     },
     (xhr) => {
       // Progress
@@ -151,6 +156,9 @@ function loadAnatomicalHeartGLB() {
       console.warn("Could not load anatomical_heart.glb, building organic procedural fallback:", error);
       buildContinuousOrganicFallback();
       buildContinuousCoronaryArteries();
+      if (currentPredictions) {
+        update3DCoronaries();
+      }
     }
   );
 }

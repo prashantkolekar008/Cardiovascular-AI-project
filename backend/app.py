@@ -339,10 +339,12 @@ def explain_prediction(patient_data: Dict[str, Any]):
             "direction": "Elevates Risk" if "St Elevation" in clean_name or "Age" in clean_name or "Typical" in clean_name else "Contributing Factor"
         })
 
+    summary_driver1 = explanations[0]['feature'] if len(explanations) > 0 else "Clinical Biomarkers"
+    summary_driver2 = f" and {explanations[1]['feature']}" if len(explanations) > 1 else ""
     return {
         "top_contributing_factors": explanations,
         "method": "Random Forest Tree-Level Feature Attribution & SHAP Global Weighting",
-        "clinical_summary": f"Primary cardiac risk drivers are dominated by {explanations[0]['feature']} and {explanations[1]['feature']}."
+        "clinical_summary": f"Primary cardiac risk drivers are dominated by {summary_driver1}{summary_driver2}."
     }
 
 if __name__ == "__main__":

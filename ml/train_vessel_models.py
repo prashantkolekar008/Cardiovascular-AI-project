@@ -77,7 +77,7 @@ for target in ["LAD", "LCX", "RCA"]:
         "Stenotic": 1,
     }
 
-    y = y_raw.map(label_map)
+    y = y_raw.str.capitalize().map(label_map)
 
     # Stop if unexpected labels exist
     if y.isna().any():
