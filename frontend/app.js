@@ -655,7 +655,17 @@ async function setupPresets() {
     document.getElementById("btn-preset-2").addEventListener("click", () => activatePreset(1, "btn-preset-2"));
     document.getElementById("btn-preset-3").addEventListener("click", () => activatePreset(2, "btn-preset-3"));
 
-    activatePreset(2, "btn-preset-3");
+    const urlParams = new URLSearchParams(window.location.search);
+    const presetParam = urlParams.get("preset");
+    const initialPreset = (presetParam !== null && !isNaN(parseInt(presetParam))) ? parseInt(presetParam, 10) : 2;
+    const initialBtn = `btn-preset-${initialPreset + 1}`;
+    activatePreset(initialPreset, initialBtn);
+
+    if (urlParams.get("modal") === "1") {
+      setTimeout(() => {
+        document.getElementById("custom-modal")?.classList.remove("hidden");
+      }, 600);
+    }
   } catch (err) {
     console.error("Presets loading error:", err);
   }
